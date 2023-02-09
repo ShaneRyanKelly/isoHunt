@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        diagonalMove = moveDistance;
+        diagonalMove = .8f * moveDistance;
     }
 
     // Update is called once per frame
@@ -61,13 +61,13 @@ public class Player : MonoBehaviour
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 45){
             if (yVector == 1)
-                transform.position += moveDistance * new Vector3(1,0f,1);
+                transform.position += new Vector3(diagonalMove,0f,diagonalMove);
             if (yVector == -1)
-                transform.position += moveDistance * new Vector3(-1,0f,-1);
+                transform.position += new Vector3(-diagonalMove,0f,-diagonalMove);
             if (xVector == 1)
-                transform.position += moveDistance * new Vector3(1,0f,-1);
+                transform.position += new Vector3(diagonalMove,0f,-diagonalMove);
             if (xVector == -1)
-                transform.position += moveDistance * new Vector3(-1,0f,1);
+                transform.position += new Vector3(-diagonalMove,0f,diagonalMove);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 135){
             if (yVector == 1)
