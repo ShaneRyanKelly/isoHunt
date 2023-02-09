@@ -6,13 +6,14 @@ public class Player : MonoBehaviour
 {
     public float maxSpeed = .15f;
     public float moveDistance = 0f;
+    public float diagonalMove;
     public Camera mainCamera;
     float xVector, yVector;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        diagonalMove = moveDistance;
     }
 
     // Update is called once per frame
@@ -28,15 +29,15 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(xVector) == Mathf.Abs(yVector)){
             
         }
-        if (Mathf.Round(mainCamera.transform.eulerAngles.y) > 90f && Mathf.Round(mainCamera.transform.eulerAngles.y) < 270f){
+        if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 180){
             if (yVector == 1)
-                transform.position += new Vector3(0f,0f,-moveDistance);
+                transform.position += moveDistance * new Vector3(0f,0f,-1);
             else if (yVector == -1)
-                transform.position += new Vector3(0f,0f,moveDistance);
+                transform.position += moveDistance * new Vector3(0f,0f,1);
             else if (xVector == 1)
-                transform.position += new Vector3(-moveDistance,0f,0f);
+                transform.position += moveDistance * new Vector3(-1,0f,0f);
             else if(xVector == -1)
-                transform.position += new Vector3(moveDistance,0f,0f);
+                transform.position += moveDistance * new Vector3(1,0f,0f);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 90){
             if (yVector == 1)
@@ -57,6 +58,46 @@ public class Player : MonoBehaviour
                 transform.position += new Vector3(0f,0f,moveDistance);
             if (xVector == -1)
                 transform.position += new Vector3(0f,0f,-moveDistance);
+        }
+        else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 45){
+            if (yVector == 1)
+                transform.position += moveDistance * new Vector3(1,0f,1);
+            if (yVector == -1)
+                transform.position += moveDistance * new Vector3(-1,0f,-1);
+            if (xVector == 1)
+                transform.position += moveDistance * new Vector3(1,0f,-1);
+            if (xVector == -1)
+                transform.position += moveDistance * new Vector3(-1,0f,1);
+        }
+        else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 135){
+            if (yVector == 1)
+                transform.position += new Vector3(diagonalMove,0f,-diagonalMove);
+            if (yVector == -1)
+                transform.position += new Vector3(-diagonalMove,0f,diagonalMove);
+            if (xVector == 1)
+                transform.position += new Vector3(-diagonalMove,0f,-diagonalMove);
+            if (xVector == -1)
+                transform.position += new Vector3(diagonalMove,0f,diagonalMove);
+        }
+        else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 225){
+            if (yVector == 1)
+                transform.position += new Vector3(-diagonalMove,0f,-diagonalMove);
+            if (yVector == -1)
+                transform.position += new Vector3(diagonalMove,0f,diagonalMove);
+            if (xVector == 1)
+                transform.position += new Vector3(-diagonalMove,0f,diagonalMove);
+            if (xVector == -1)
+                transform.position += new Vector3(diagonalMove,0f,-diagonalMove);
+        }
+        else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 315){
+            if (yVector == 1)
+                transform.position += new Vector3(-diagonalMove,0f,diagonalMove);
+            if (yVector == -1)
+                transform.position += new Vector3(diagonalMove,0f,-diagonalMove);
+            if (xVector == 1)
+                transform.position += new Vector3(diagonalMove,0f,diagonalMove);
+            if (xVector == -1)
+                transform.position += new Vector3(-diagonalMove,0f,-diagonalMove);
         }
         else{
             if (yVector == 1)
