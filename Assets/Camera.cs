@@ -17,18 +17,42 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateAngle();
-        UpdatePostion();
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.JoystickButton4))
+            StartCoroutine(UpdateAngle(45f));
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.JoystickButton5))
+            StartCoroutine(UpdateAngle(-45f));
+        transform.rotation = Quaternion.Euler(60f, Mathf.Round(transform.rotation.y), 0f);
+        //UpdatePostion();
+    }
+    IEnumerator UpdateAngle(float angle)
+    {
+        float timeSinceStarted = 0f;
+        while (true)
+        {
+            float lAngle = Mathf.LerpAngle(0, angle, Time.deltaTime);
+            timeSinceStarted += Time.deltaTime * 0.45f;
+            transform.RotateAround(player.transform.position,Vector3.up, lAngle);
+            transform.LookAt(player.transform.position);
+            // If the object has arrived, stop the coroutine
+            if (timeSinceStarted >= 0.45f)
+            {
+                yield break;
+            }
+ 
+            // Otherwise, continue next frame
+            yield return null;
+        }
     }
 
-    void UpdateAngle(){
+    /*void UpdateAngle(){
+        float angle = Mathf.LerpAngle(0, 45, 2);
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.JoystickButton4))
-            transform.RotateAround(player.transform.position, Vector3.up, 45);
+            transform.RotateAround(player.transform.position, Vector3.up, angle);
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.JoystickButton5))
-            transform.RotateAround(player.transform.position, Vector3.up, -45);
+            transform.RotateAround(player.transform.position, Vector3.up, -angle);
 
         transform.LookAt(player.transform.position);
-    }
+    }*/
     
     void UpdatePostion(){
         //if (Input.GetKeyDown(KeyCode.LeftArrow))

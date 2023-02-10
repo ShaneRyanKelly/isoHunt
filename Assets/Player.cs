@@ -62,43 +62,43 @@ public class Player : MonoBehaviour
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 45){
             if (yVector == 1)
-                body.velocity += moveDistance * new Vector3(1,0f,1);
+                body.velocity += diagonalMove * new Vector3(1,0f,1);
             if (yVector == -1)
-                body.velocity += moveDistance * new Vector3(-1,0f,-1);
+                body.velocity += diagonalMove * new Vector3(-1,0f,-1);
             if (xVector == 1)
-                body.velocity += moveDistance * new Vector3(1,0f,-1);
+                body.velocity += diagonalMove * new Vector3(1,0f,-1);
             if (xVector == -1)
-                body.velocity += moveDistance * new Vector3(-1,0f,1);
+                body.velocity += diagonalMove * new Vector3(-1,0f,1);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 135){
             if (yVector == 1)
-                body.velocity += moveDistance * new Vector3(1,0f,-1);
+                body.velocity += diagonalMove * new Vector3(1,0f,-1);
             if (yVector == -1)
-                body.velocity += moveDistance * new Vector3(-1,0f,1);
+                body.velocity += diagonalMove * new Vector3(-1,0f,1);
             if (xVector == 1)
-                body.velocity += moveDistance * new Vector3(-1,0f,-1);
+                body.velocity += diagonalMove * new Vector3(-1,0f,-1);
             if (xVector == -1)
-                body.velocity += moveDistance * new Vector3(1,0f,1);
+                body.velocity += diagonalMove * new Vector3(1,0f,1);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 225){
             if (yVector == 1)
-                body.velocity += moveDistance * new Vector3(-1,0f,-1);
+                body.velocity += diagonalMove * new Vector3(-1,0f,-1);
             if (yVector == -1)
-                body.velocity += moveDistance * new Vector3(1,0f,1);
+                body.velocity += diagonalMove * new Vector3(1,0f,1);
             if (xVector == 1)
-                body.velocity += moveDistance * new Vector3(-1,0f,1);
+                body.velocity += diagonalMove * new Vector3(-1,0f,1);
             if (xVector == -1)
-                body.velocity += moveDistance * new Vector3(1,0f,-1);
+                body.velocity += diagonalMove * new Vector3(1,0f,-1);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 315){
             if (yVector == 1)
-                body.velocity += moveDistance * new Vector3(-1,0f,1);
+                body.velocity += diagonalMove * new Vector3(-1,0f,1);
             if (yVector == -1)
-                body.velocity += moveDistance * new Vector3(1,0f,-1);
+                body.velocity += diagonalMove * new Vector3(1,0f,-1);
             if (xVector == 1)
-                body.velocity += moveDistance * new Vector3(1,0f,1);
+                body.velocity += diagonalMove * new Vector3(1,0f,1);
             if (xVector == -1)
-                body.velocity += moveDistance * new Vector3(-1,0f,-1);
+                body.velocity += diagonalMove * new Vector3(-1,0f,-1);
         }
         else{
             if (yVector == 1)
