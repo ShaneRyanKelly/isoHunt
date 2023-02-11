@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public Rigidbody body;
     float xVector, yVector;
     private bool isRotating = false;
+    public GameObject cube;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,17 @@ public class Player : MonoBehaviour
         HandleCamera();
         if (!isRotating)
             HandleMovement();
+            HandleAiming();
+    }
+
+    void HandleAiming(){
+        xVector = Mathf.Round(Input.GetAxisRaw("Roll"));
+        yVector = Mathf.Round(Input.GetAxisRaw("Pitch"));
+
+        Quaternion angle = new Quaternion();
+        angle.eulerAngles = new Vector3(yVector, xVector, 0f);
+        //cube.transform.Rotate(new Vector3(0f, xVector, 0f));
+        cube.transform.rotation = Quaternion.LookRotation(new Vector3(xVector, 0, yVector));
     }
 
     void HandleCamera(){
@@ -71,9 +83,6 @@ public class Player : MonoBehaviour
         xVector = Mathf.Round(Input.GetAxisRaw("Horizontal"));
         yVector = Mathf.Round(Input.GetAxisRaw("Vertical"));
         //Debug.Log("x: " + xVector + " y: " + yVector);
-        if (Mathf.Abs(xVector) == Mathf.Abs(yVector)){
-            
-        }
         if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 180){
             if (yVector == 1)
                 body.velocity += moveDistance * new Vector3(0f,0f,-1);
