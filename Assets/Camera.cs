@@ -21,7 +21,7 @@ public class Camera : MonoBehaviour
             StartCoroutine(UpdateAngle(45f));
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.JoystickButton5))
             StartCoroutine(UpdateAngle(-45f));
-        transform.rotation = Quaternion.Euler(60f, Mathf.Round(transform.rotation.y), 0f);
+        //UpdateAngle();
         //UpdatePostion();
     }
     IEnumerator UpdateAngle(float angle)
@@ -34,8 +34,11 @@ public class Camera : MonoBehaviour
             transform.RotateAround(player.transform.position,Vector3.up, lAngle);
             transform.LookAt(player.transform.position);
             // If the object has arrived, stop the coroutine
-            if (timeSinceStarted >= 0.45f)
+            if (timeSinceStarted > 0.45f)
             {
+                Quaternion angles = new Quaternion();
+                angles.eulerAngles = new Vector3(Mathf.Round(transform.rotation.eulerAngles.x), Mathf.Round(transform.rotation.eulerAngles.y), 0f);
+                transform.rotation = angles;
                 yield break;
             }
  
