@@ -8,6 +8,7 @@ public class Camera : MonoBehaviour
     public GameObject player;
     public float xAngle;
     float yAngle = 0;
+    public bool isRotating = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,7 @@ public class Camera : MonoBehaviour
     IEnumerator UpdateAngle(float angle)
     {
         float timeSinceStarted = 0f;
+        isRotating = true;
         while (true)
         {
             float lAngle = Mathf.LerpAngle(0, angle, Time.deltaTime);
@@ -39,6 +41,7 @@ public class Camera : MonoBehaviour
                 Quaternion angles = new Quaternion();
                 angles.eulerAngles = new Vector3(Mathf.Round(transform.rotation.eulerAngles.x), Mathf.Round(transform.rotation.eulerAngles.y), 0f);
                 transform.rotation = angles;
+                isRotating = false;
                 yield break;
             }
  
