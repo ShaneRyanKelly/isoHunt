@@ -10,8 +10,9 @@ public class Player : MonoBehaviour
     public Camera mainCamera;
     public Rigidbody body;
     float xVector, yVector;
+    float shoot, swing;
     private bool isRotating = false;
-    public GameObject cube;
+    public GameObject pivot;
 
     // Start is called before the first frame update
     void Start()
@@ -26,16 +27,20 @@ public class Player : MonoBehaviour
         if (!isRotating)
             HandleMovement();
             HandleAiming();
+            HandleInput();
     }
 
     void HandleAiming(){
         xVector = Mathf.Round(Input.GetAxisRaw("Roll"));
         yVector = Mathf.Round(Input.GetAxisRaw("Pitch"));
+        if (xVector == 0 && yVector == 0){
 
-        Quaternion angle = new Quaternion();
-        angle.eulerAngles = new Vector3(yVector, xVector, 0f);
+        }
+        else 
+            pivot.transform.rotation = Quaternion.LookRotation(new Vector3(xVector, 0, yVector));
+        //Quaternion angle = new Quaternion();
+        //angle.eulerAngles = new Vector3(yVector, xVector, 0f);
         //cube.transform.Rotate(new Vector3(0f, xVector, 0f));
-        cube.transform.rotation = Quaternion.LookRotation(new Vector3(xVector, 0, yVector));
     }
 
     void HandleCamera(){
@@ -43,6 +48,15 @@ public class Player : MonoBehaviour
             StartCoroutine(UpdateAngle(45f));
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.JoystickButton5))
             StartCoroutine(UpdateAngle(-45f));
+    }
+
+    void HandleInput(){
+        swing = Mathf.Round(Input.GetAxisRaw("Swing"));
+        shoot = Mathf.Round(Input.GetAxisRaw("Shoot"));
+        if (swing > 0)
+            Debug.Log("R Trigger");
+        else if (shoot > 0)
+            Debug.Log("L Trigger");
     }
 
     void fixAngle(){
