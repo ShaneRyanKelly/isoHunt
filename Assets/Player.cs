@@ -31,12 +31,19 @@ public class Player : MonoBehaviour
     }
 
     void HandleAiming(){
-        xVector = Mathf.Round(Input.GetAxisRaw("Roll"));
-        yVector = Mathf.Round(Input.GetAxisRaw("Pitch"));
+        xVector = Mathf.Round(Input.GetAxis("Roll"));
+        yVector = Mathf.Round(Input.GetAxis("Pitch"));
+        Quaternion angle = new Quaternion();
         if (xVector == 0 && yVector == 0){
 
         }
-        else 
+        else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 180)
+            pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-xVector, 0, -yVector));
+        else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 90){
+            angle.eulerAngles = new Vector3(xVector, 0f, yVector);
+            pivot.transform.rotation = Quaternion.LookRotation(angle.eulerAngles);
+        }
+        else
             pivot.transform.rotation = Quaternion.LookRotation(new Vector3(xVector, 0, yVector));
         //Quaternion angle = new Quaternion();
         //angle.eulerAngles = new Vector3(yVector, xVector, 0f);
