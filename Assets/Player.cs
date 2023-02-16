@@ -9,10 +9,13 @@ public class Player : MonoBehaviour
     public float diagonalMove;
     public Camera mainCamera;
     public Rigidbody body;
-    float xVector, yVector;
+    float xMoveVector, yMoveVector;
+    float xAimVector, yAimVector;
     float shoot, swing;
     private bool isRotating = false;
     public GameObject pivot;
+    public GameObject projectile;
+    private bool canFire = true;
 
     // Start is called before the first frame update
     void Start()
@@ -31,94 +34,94 @@ public class Player : MonoBehaviour
     }
 
     void HandleAiming(){
-        xVector = Mathf.Round(Input.GetAxisRaw("Roll"));
-        yVector = Mathf.Round(Input.GetAxisRaw("Pitch"));
-        Debug.Log("x: " + xVector + " y: " + yVector);
+        xAimVector = Mathf.Round(Input.GetAxisRaw("Roll"));
+        yAimVector = Mathf.Round(Input.GetAxisRaw("Pitch"));
+        Debug.Log("x: " + xAimVector + " y: " + yAimVector);
         float yAngle = Mathf.Round(mainCamera.transform.eulerAngles.y);
         if (yAngle == 180)
-            pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-xVector, 0, -yVector));
+            pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-xAimVector, 0, -yAimVector));
         else if (yAngle == 45)
         {
-            if (xVector == 0 && yVector == 1)
+            if (xAimVector == 0 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
-            else if (xVector == 0 && yVector == -1)
+            else if (xAimVector == 0 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
-            else if (xVector == 1 && yVector == 1)
+            else if (xAimVector == 1 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
-            else if (xVector == -1 && yVector == 1)
+            else if (xAimVector == -1 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
-            else if (xVector == -1 && yVector == 0)
+            else if (xAimVector == -1 && yAimVector == 0)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
-            else if (xVector == 1 && yVector == 0)
+            else if (xAimVector == 1 && yAimVector == 0)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, -1));
-            else if (xVector == 1 && yVector == -1)
+            else if (xAimVector == 1 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
-            else if (xVector == -1 && yVector == -1)
+            else if (xAimVector == -1 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
         }
         else if (yAngle == 135){
-            if (xVector == 0 && yVector == 1)
+            if (xAimVector == 0 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, -1));
-            else if (xVector == 0 && yVector == -1)
+            else if (xAimVector == 0 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
-            else if (xVector == 1 && yVector == 1)
+            else if (xAimVector == 1 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
-            else if (xVector == -1 && yVector == 1)
+            else if (xAimVector == -1 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
-            else if (xVector == -1 && yVector == 0)
+            else if (xAimVector == -1 && yAimVector == 0)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
-            else if (xVector == 1 && yVector == 0)
+            else if (xAimVector == 1 && yAimVector == 0)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
-            else if (xVector == 1 && yVector == -1)
+            else if (xAimVector == 1 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
-            else if (xVector == -1 && yVector == -1)
+            else if (xAimVector == -1 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
         }
         else if (yAngle == 225){
-            if (xVector == 0 && yVector == 1)
+            if (xAimVector == 0 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
-            else if (xVector == 0 && yVector == -1)
+            else if (xAimVector == 0 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
-            else if (xVector == 1 && yVector == 1)
+            else if (xAimVector == 1 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
-            else if (xVector == -1 && yVector == 1)
+            else if (xAimVector == -1 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
-            else if (xVector == -1 && yVector == 0)
+            else if (xAimVector == -1 && yAimVector == 0)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, -1));
-            else if (xVector == 1 && yVector == 0)
+            else if (xAimVector == 1 && yAimVector == 0)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
-            else if (xVector == 1 && yVector == -1)
+            else if (xAimVector == 1 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
-            else if (xVector == -1 && yVector == -1)
+            else if (xAimVector == -1 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
         }
         else if (yAngle == 315){
-            if (xVector == 0 && yVector == 1)
+            if (xAimVector == 0 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
-            else if (xVector == 0 && yVector == -1)
+            else if (xAimVector == 0 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, -1));
-            else if (xVector == 1 && yVector == 1)
+            else if (xAimVector == 1 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
-            else if (xVector == -1 && yVector == 1)
+            else if (xAimVector == -1 && yAimVector == 1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
-            else if (xVector == -1 && yVector == 0)
+            else if (xAimVector == -1 && yAimVector == 0)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
-            else if (xVector == 1 && yVector == 0)
+            else if (xAimVector == 1 && yAimVector == 0)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
-            else if (xVector == 1 && yVector == -1)
+            else if (xAimVector == 1 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
-            else if (xVector == -1 && yVector == -1)
+            else if (xAimVector == -1 && yAimVector == -1)
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
         }
         else if (yAngle == 90)
-            pivot.transform.rotation = Quaternion.LookRotation(new Vector3(yVector, 0, -xVector));
+            pivot.transform.rotation = Quaternion.LookRotation(new Vector3(yAimVector, 0, -xAimVector));
         else if (yAngle == 270)
-            pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-yVector, 0, xVector));
+            pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-yAimVector, 0, xAimVector));
         else 
-            pivot.transform.rotation = Quaternion.LookRotation(new Vector3(xVector, 0, yVector));
+            pivot.transform.rotation = Quaternion.LookRotation(new Vector3(xAimVector, 0, yAimVector));
         //Quaternion angle = new Quaternion();
-        //angle.eulerAngles = new Vector3(yVector, xVector, 0f);
-        //cube.transform.Rotate(new Vector3(0f, xVector, 0f));
+        //angle.eulerAngles = new Vector3(yAimVector, xAimVector, 0f);
+        //cube.transform.Rotate(new Vector3(0f, xAimVector, 0f));
     }
 
     void HandleCamera(){
@@ -132,9 +135,19 @@ public class Player : MonoBehaviour
         swing = Mathf.Round(Input.GetAxisRaw("Swing"));
         shoot = Mathf.Round(Input.GetAxisRaw("Shoot"));
         if (swing > 0)
-            Debug.Log("R Trigger");
-        else if (shoot > 0)
-            Debug.Log("L Trigger");
+            fireProjectile();    
+    }
+
+    void fireProjectile(){
+        if (canFire){
+            Debug.Log("Instantiate projectile!");
+            Quaternion projectileAim = new Quaternion();
+            projectileAim.eulerAngles = new Vector3(xAimVector, 0f, yAimVector);
+            Instantiate(projectile, transform.position, projectileAim);
+            var body = projectile.GetComponent<Rigidbody>();
+            body.velocity += moveDistance * new Vector3(xAimVector, 0f, yAimVector);
+            canFire = false;
+        }
     }
 
     void fixAngle(){
@@ -148,8 +161,8 @@ public class Player : MonoBehaviour
         mainCamera.transform.rotation = angles;
     }
 
-    IEnumerator UpdateAngle(float angle)
-    {
+    IEnumerator UpdateAngle(float angle){
+        canFire = true;
         float timeSinceStarted = 0f;
         isRotating = true;
         while (true)
@@ -172,87 +185,87 @@ public class Player : MonoBehaviour
     }
 
     void HandleMovement(){
-        xVector = Mathf.Round(Input.GetAxisRaw("Horizontal"));
-        yVector = Mathf.Round(Input.GetAxisRaw("Vertical"));
-        //Debug.Log("x: " + xVector + " y: " + yVector);
+        xMoveVector = Mathf.Round(Input.GetAxisRaw("Horizontal"));
+        yMoveVector = Mathf.Round(Input.GetAxisRaw("Vertical"));
+        //Debug.Log("x: " + xMoveVector + " y: " + yMoveVector);
         if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 180){
-            if (yVector == 1)
+            if (yMoveVector == 1)
                 body.velocity += moveDistance * new Vector3(0f,0f,-1);
-            else if (yVector == -1)
+            else if (yMoveVector == -1)
                 body.velocity += moveDistance * new Vector3(0f,0f,1);
-            else if (xVector == 1)
+            else if (xMoveVector == 1)
                 body.velocity += moveDistance * new Vector3(-1,0f,0f);
-            else if(xVector == -1)
+            else if(xMoveVector == -1)
                 body.velocity += moveDistance * new Vector3(1,0f,0f);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 90){
-            if (yVector == 1)
+            if (yMoveVector == 1)
                 body.velocity += moveDistance * new Vector3(1,0f,0f);
-            if (yVector == -1)
+            if (yMoveVector == -1)
                 body.velocity += moveDistance * new Vector3(-1,0f,0f);
-            if (xVector == 1)
+            if (xMoveVector == 1)
                 body.velocity += moveDistance * new Vector3(0f,0f,-1);
-                if (xVector == -1)
+                if (xMoveVector == -1)
                 body.velocity += moveDistance * new Vector3(0f,0f,1);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 270){
-            if (yVector == 1)
+            if (yMoveVector == 1)
                 body.velocity += moveDistance * new Vector3(-1,0f,0f);
-            if (yVector == -1)
+            if (yMoveVector == -1)
                 body.velocity += moveDistance * new Vector3(1,0f,0f);
-            if (xVector == 1)
+            if (xMoveVector == 1)
                 body.velocity += moveDistance * new Vector3(0f,0f,1);
-            if (xVector == -1)
+            if (xMoveVector == -1)
                 body.velocity += moveDistance * new Vector3(0f,0f,-1);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 45){
-            if (yVector == 1)
+            if (yMoveVector == 1)
                 body.velocity += diagonalMove * new Vector3(1,0f,1);
-            if (yVector == -1)
+            if (yMoveVector == -1)
                 body.velocity += diagonalMove * new Vector3(-1,0f,-1);
-            if (xVector == 1)
+            if (xMoveVector == 1)
                 body.velocity += diagonalMove * new Vector3(1,0f,-1);
-            if (xVector == -1)
+            if (xMoveVector == -1)
                 body.velocity += diagonalMove * new Vector3(-1,0f,1);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 135){
-            if (yVector == 1)
+            if (yMoveVector == 1)
                 body.velocity += diagonalMove * new Vector3(1,0f,-1);
-            if (yVector == -1)
+            if (yMoveVector == -1)
                 body.velocity += diagonalMove * new Vector3(-1,0f,1);
-            if (xVector == 1)
+            if (xMoveVector == 1)
                 body.velocity += diagonalMove * new Vector3(-1,0f,-1);
-            if (xVector == -1)
+            if (xMoveVector == -1)
                 body.velocity += diagonalMove * new Vector3(1,0f,1);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 225){
-            if (yVector == 1)
+            if (yMoveVector == 1)
                 body.velocity += diagonalMove * new Vector3(-1,0f,-1);
-            if (yVector == -1)
+            if (yMoveVector == -1)
                 body.velocity += diagonalMove * new Vector3(1,0f,1);
-            if (xVector == 1)
+            if (xMoveVector == 1)
                 body.velocity += diagonalMove * new Vector3(-1,0f,1);
-            if (xVector == -1)
+            if (xMoveVector == -1)
                 body.velocity += diagonalMove * new Vector3(1,0f,-1);
         }
         else if (Mathf.Round(mainCamera.transform.eulerAngles.y) == 315){
-            if (yVector == 1)
+            if (yMoveVector == 1)
                 body.velocity += diagonalMove * new Vector3(-1,0f,1);
-            if (yVector == -1)
+            if (yMoveVector == -1)
                 body.velocity += diagonalMove * new Vector3(1,0f,-1);
-            if (xVector == 1)
+            if (xMoveVector == 1)
                 body.velocity += diagonalMove * new Vector3(1,0f,1);
-            if (xVector == -1)
+            if (xMoveVector == -1)
                 body.velocity += diagonalMove * new Vector3(-1,0f,-1);
         }
         else{
-            if (yVector == 1)
+            if (yMoveVector == 1)
                 body.velocity += moveDistance * new Vector3(0f,0f,1);
-            if (yVector == -1)
+            if (yMoveVector == -1)
                 body.velocity += moveDistance * new Vector3(0f,0f,-1);
-            if (xVector == 1)
+            if (xMoveVector == 1)
                 body.velocity += moveDistance * new Vector3(1,0f,0f);
-            if (xVector == -1)
+            if (xMoveVector == -1)
                 body.velocity += moveDistance * new Vector3(-1,0f,0f);
         }
 
