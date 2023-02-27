@@ -34,8 +34,44 @@ public class Player : MonoBehaviour
     }
 
     void HandleAiming(){
-        xAimVector = Mathf.Round(Input.GetAxisRaw("Roll"));
-        yAimVector = Mathf.Round(Input.GetAxisRaw("Pitch"));
+        if (Input.GetAxisRaw("Roll") != 0 || Input.GetAxisRaw("Pitch") != 0){
+            xAimVector = Mathf.Round(Input.GetAxisRaw("Roll"));
+            yAimVector = Mathf.Round(Input.GetAxisRaw("Pitch"));
+        }
+        else{
+            if (Input.GetKey("[4]")){
+                xAimVector = -1f;
+                yAimVector = 0f;
+            }
+            else if (Input.GetKey("[6]")){
+                xAimVector = 1f;
+                yAimVector = 0f;
+            }
+            else if (Input.GetKey("[8]")){
+                xAimVector = 0f;
+                yAimVector = 1f;
+            }
+            else if (Input.GetKey("[2]")){
+                xAimVector = 0f;
+                yAimVector = -1f;
+            }
+            else if (Input.GetKey("[7]")){
+                xAimVector = -1f;
+                yAimVector = 1f;
+            }
+            else if (Input.GetKey("[9]")){
+                xAimVector = 1f;
+                yAimVector = 1f;
+            }
+            else if (Input.GetKey("[1]")){
+                xAimVector = -1f;
+                yAimVector = -1f;
+            }
+            else if (Input.GetKey("[3]")){
+                xAimVector = 1f;
+                yAimVector = -1f;
+            }
+        }
         Debug.Log("x: " + xAimVector + " y: " + yAimVector);
         float yAngle = Mathf.Round(mainCamera.transform.eulerAngles.y);
         if (yAngle == 180)
