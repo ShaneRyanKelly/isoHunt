@@ -29,11 +29,12 @@ public class Player : MonoBehaviour
     void Update()
     {
         HandleCamera();
-        if (!isRotating)
+        if (!isRotating){
             HandleMovement();
             HandleAiming();
             HandleInput();
             HandleCooldowns();
+        }
     }
 
     void HandleAiming(){
@@ -74,88 +75,200 @@ public class Player : MonoBehaviour
                 xAimVector = 1f;
                 yAimVector = -1f;
             }
+            else {
+                xAimVector = pivot.transform.rotation.x;
+                yAimVector = pivot.transform.rotation.y;
+            }
         }
         Debug.Log("x: " + xAimVector + " y: " + yAimVector);
         float yAngle = Mathf.Round(mainCamera.transform.eulerAngles.y);
-        if (yAngle == 180)
+        if (yAngle == 180){
             pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-xAimVector, 0, -yAimVector));
+            xAimVector = -xAimVector;
+            yAimVector = -yAimVector;
+        }
         else if (yAngle == 45)
         {
-            if (xAimVector == 0 && yAimVector == 1)
+            if (xAimVector == 0 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
-            else if (xAimVector == 0 && yAimVector == -1)
+                xAimVector = 1;
+                yAimVector = 1;
+            }
+            else if (xAimVector == 0 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
-            else if (xAimVector == 1 && yAimVector == 1)
+                xAimVector = -1;
+                yAimVector = -1;
+            } 
+            else if (xAimVector == 1 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
-            else if (xAimVector == -1 && yAimVector == 1)
+                xAimVector = 1;
+                yAimVector = 0;
+            }   
+            else if (xAimVector == -1 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
-            else if (xAimVector == -1 && yAimVector == 0)
+                xAimVector = 0;
+                yAimVector = 1;
+            }
+            else if (xAimVector == -1 && yAimVector == 0){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
-            else if (xAimVector == 1 && yAimVector == 0)
+                xAimVector = -1;
+                yAimVector = 1;
+            }
+            else if (xAimVector == 1 && yAimVector == 0){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, -1));
-            else if (xAimVector == 1 && yAimVector == -1)
+                xAimVector = 1;
+                yAimVector = -1;
+            }
+            else if (xAimVector == 1 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
-            else if (xAimVector == -1 && yAimVector == -1)
+                xAimVector = 0;
+                yAimVector = -1;
+            }
+            else if (xAimVector == -1 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
+                xAimVector = -1;
+                yAimVector = 0;
+            }
         }
         else if (yAngle == 135){
-            if (xAimVector == 0 && yAimVector == 1)
+            if (xAimVector == 0 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, -1));
-            else if (xAimVector == 0 && yAimVector == -1)
+                xAimVector = 1;
+                yAimVector = -1;
+            }
+            else if (xAimVector == 0 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
-            else if (xAimVector == 1 && yAimVector == 1)
+                xAimVector = -1;
+                yAimVector = 1;
+            }
+            else if (xAimVector == 1 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
-            else if (xAimVector == -1 && yAimVector == 1)
+                xAimVector = 0;
+                yAimVector = -1;
+            }
+            else if (xAimVector == -1 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
-            else if (xAimVector == -1 && yAimVector == 0)
+                xAimVector = 1;
+                yAimVector = 0;
+            }
+            else if (xAimVector == -1 && yAimVector == 0){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
-            else if (xAimVector == 1 && yAimVector == 0)
+                xAimVector = 1;
+                yAimVector = 1;
+            }
+            else if (xAimVector == 1 && yAimVector == 0){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
-            else if (xAimVector == 1 && yAimVector == -1)
+                xAimVector = -1;
+                yAimVector = -1;
+            }
+            else if (xAimVector == 1 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
-            else if (xAimVector == -1 && yAimVector == -1)
+                xAimVector = -1;
+                yAimVector = 0;
+            }
+            else if (xAimVector == -1 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
+                xAimVector = 0;
+                yAimVector = 1;
+            }
         }
         else if (yAngle == 225){
-            if (xAimVector == 0 && yAimVector == 1)
+            if (xAimVector == 0 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
-            else if (xAimVector == 0 && yAimVector == -1)
+                xAimVector = -1;
+                yAimVector = -1;
+            }
+            else if (xAimVector == 0 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
-            else if (xAimVector == 1 && yAimVector == 1)
+                xAimVector = 1;
+                yAimVector = 1;
+            }
+            else if (xAimVector == 1 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
-            else if (xAimVector == -1 && yAimVector == 1)
+                xAimVector = -1;
+                yAimVector = 0;
+            }
+            else if (xAimVector == -1 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
-            else if (xAimVector == -1 && yAimVector == 0)
+                xAimVector = 0;
+                yAimVector = -1;
+            }
+            else if (xAimVector == -1 && yAimVector == 0){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, -1));
-            else if (xAimVector == 1 && yAimVector == 0)
+                xAimVector = 1;
+                yAimVector = -1;
+            }
+            else if (xAimVector == 1 && yAimVector == 0){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
-            else if (xAimVector == 1 && yAimVector == -1)
+                xAimVector = -1;
+                yAimVector = 1;
+            }
+            else if (xAimVector == 1 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
-            else if (xAimVector == -1 && yAimVector == -1)
+                xAimVector = 0;
+                yAimVector = 1;
+            }
+            else if (xAimVector == -1 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
+                xAimVector = 1;
+                yAimVector = 0;
+            }
         }
         else if (yAngle == 315){
-            if (xAimVector == 0 && yAimVector == 1)
+            if (xAimVector == 0 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
-            else if (xAimVector == 0 && yAimVector == -1)
+                xAimVector = -1;
+                yAimVector = 1;
+            }
+            else if (xAimVector == 0 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, -1));
-            else if (xAimVector == 1 && yAimVector == 1)
+                xAimVector = 1;
+                yAimVector = -1;
+            }
+            else if (xAimVector == 1 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
-            else if (xAimVector == -1 && yAimVector == 1)
+                xAimVector = 0;
+                yAimVector = 1;
+            }
+            else if (xAimVector == -1 && yAimVector == 1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
-            else if (xAimVector == -1 && yAimVector == 0)
+                xAimVector = -1;
+                yAimVector = 0;
+            }
+            else if (xAimVector == -1 && yAimVector == 0){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
-            else if (xAimVector == 1 && yAimVector == 0)
+                xAimVector = -1;
+                yAimVector = -1;
+            }
+            else if (xAimVector == 1 && yAimVector == 0){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
-            else if (xAimVector == 1 && yAimVector == -1)
+                xAimVector = 1;
+                yAimVector = 1;
+            }
+            else if (xAimVector == 1 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
-            else if (xAimVector == -1 && yAimVector == -1)
+                xAimVector = 1;
+                yAimVector = 0;
+            }
+            else if (xAimVector == -1 && yAimVector == -1){
                 pivot.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
+                xAimVector = 0;
+                yAimVector = -1;
+            }
         }
-        else if (yAngle == 90)
+        else if (yAngle == 90){
             pivot.transform.rotation = Quaternion.LookRotation(new Vector3(yAimVector, 0, -xAimVector));
-        else if (yAngle == 270)
+            var temp = xAimVector;
+            xAimVector = yAimVector;
+            yAimVector = -temp;
+            
+        }  
+        else if (yAngle == 270){
             pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-yAimVector, 0, xAimVector));
+            var temp = yAimVector;
+            yAimVector = xAimVector;
+            xAimVector = -temp;
+        }
         else 
             pivot.transform.rotation = Quaternion.LookRotation(new Vector3(xAimVector, 0, yAimVector));
         //Quaternion angle = new Quaternion();
