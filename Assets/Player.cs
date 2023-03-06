@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public GameObject pivot;
     public GameObject projectile;
     private bool canFire = true;
+    public int shootCooldown = 1000;
+    public float projectileVelocity = 200f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour
             HandleMovement();
             HandleAiming();
             HandleInput();
+            HandleCooldowns();
     }
 
     void HandleAiming(){
@@ -167,6 +170,18 @@ public class Player : MonoBehaviour
             StartCoroutine(UpdateAngle(-45f));
     }
 
+    void HandleCooldowns(){
+        if (!canFire){
+            shootCooldown--;
+            Debug.Log(shootCooldown);
+            if (shootCooldown <= 0)
+            {
+                canFire = true;
+                shootCooldown = 1000;
+            }
+        }
+    }
+
     void HandleInput(){
         swing = Mathf.Round(Input.GetAxisRaw("Swing"));
         shoot = Mathf.Round(Input.GetAxisRaw("Shoot"));
@@ -179,9 +194,9 @@ public class Player : MonoBehaviour
             Debug.Log("Instantiate projectile!");
             Quaternion projectileAim = new Quaternion();
             projectileAim.eulerAngles = new Vector3(xAimVector, 0f, yAimVector);
-            Instantiate(projectile, transform.position, projectileAim);
-            var body = projectile.GetComponent<Rigidbody>();
-            body.velocity += moveDistance * new Vector3(xAimVector, 0f, yAimVector);
+            var newProjectile = Instantiate(projectile, pivot.transform.position, projectileAim);
+            var body = newProjectile.GetComponent<Rigidbody>();
+            body.velocity += projectileVelocity * new Vector3(xAimVector, 0f, yAimVector);
             canFire = false;
         }
     }
