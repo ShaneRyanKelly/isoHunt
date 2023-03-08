@@ -35,14 +35,16 @@ public class Player : MonoBehaviour
             HandleInput();
             HandleCooldowns();
         }
+        Debug.Log("x: " + xAimVector + " y: " + yAimVector);
     }
 
     void HandleAiming(){
-        if (Input.GetAxisRaw("Roll") != 0 || Input.GetAxisRaw("Pitch") != 0){
+        if (Mathf.Round(Input.GetAxisRaw("Roll")) != 0 || Mathf.Round(Input.GetAxisRaw("Pitch")) != 0){
             xAimVector = Mathf.Round(Input.GetAxisRaw("Roll"));
             yAimVector = Mathf.Round(Input.GetAxisRaw("Pitch"));
         }
         else{
+            Debug.Log("x: " + xAimVector + " y: " + yAimVector);
             if (Input.GetKey("[4]")){
                 xAimVector = -1f;
                 yAimVector = 0f;
@@ -76,11 +78,10 @@ public class Player : MonoBehaviour
                 yAimVector = -1f;
             }
             else {
-                xAimVector = pivot.transform.rotation.x;
-                yAimVector = pivot.transform.rotation.y;
+                //xAimVector = pivot.transform.rotation.x;
+                //yAimVector = pivot.transform.rotation.y;
             }
         }
-        Debug.Log("x: " + xAimVector + " y: " + yAimVector);
         float yAngle = Mathf.Round(mainCamera.transform.eulerAngles.y);
         if (yAngle == 180){
             pivot.transform.rotation = Quaternion.LookRotation(new Vector3(-xAimVector, 0, -yAimVector));
@@ -269,8 +270,9 @@ public class Player : MonoBehaviour
             yAimVector = xAimVector;
             xAimVector = -temp;
         }
-        else 
+        else{
             pivot.transform.rotation = Quaternion.LookRotation(new Vector3(xAimVector, 0, yAimVector));
+        }
         //Quaternion angle = new Quaternion();
         //angle.eulerAngles = new Vector3(yAimVector, xAimVector, 0f);
         //cube.transform.Rotate(new Vector3(0f, xAimVector, 0f));
