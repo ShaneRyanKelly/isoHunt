@@ -113,12 +113,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969c66d3e08eacd4a807c379a0eb3819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0.15
-  moveDistance: 0.33
+  maxSpeed: 0
+  moveDistance: 0.1
   diagonalMove: 0
   mainCamera: {fileID: 5143675942165740921}
   body: {fileID: 5143675941019568866}
   pivot: {fileID: 5143675941861523885}
+  projectile: {fileID: 0}
+  shootCooldown: 1000
+  projectileVelocity: 200
 --- !u!54 &5143675941019568866
 Rigidbody:
   m_ObjectHideFlags: 0
