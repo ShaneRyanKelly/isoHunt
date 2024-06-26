@@ -25,7 +25,7 @@ public class Camera : MonoBehaviour
         //UpdateAngle();
         //UpdatePostion();
     }
-    IEnumerator UpdateAngle(float angle)
+    public IEnumerator UpdateAngle(float angle)
     {
         float timeSinceStarted = 0f;
         isRotating = true;

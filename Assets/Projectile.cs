@@ -15,4 +15,11 @@ public class Projectile : MonoBehaviour
     {
         
     }
+
+    // This method is called when the projectile collides with another object
+    void OnTriggerEnter(Collision collision)
+    {
+        // Destroy this game object upon collision
+        Destroy(gameObject);
+    }
 }
